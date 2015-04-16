@@ -5,10 +5,10 @@
  */
 package entitycontrollers;
 
-import dbentity.EvaEmpDetails;
 import ApplicationSpecificClasses.exceptions.NonexistentEntityException;
 import ApplicationSpecificClasses.exceptions.PreexistingEntityException;
 import ApplicationSpecificClasses.exceptions.RollbackFailureException;
+import dbentity.EvaEmpDetails;
 //import dbentity.EvaEmpDetails;
 import java.io.Serializable;
 import java.util.List;
@@ -33,8 +33,9 @@ public class EvaEmpDetailsJpaController implements Serializable {
     private UserTransaction utx = null;
     private EntityManagerFactory emf = null;
 
-    public EvaEmpDetailsJpaController(EntityManagerFactory createEntityManagerFactory) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public EvaEmpDetailsJpaController(EntityManagerFactory emf) {
+       // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.emf = emf;
     }
 
     public EntityManager getEntityManager() {
