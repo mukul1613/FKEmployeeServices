@@ -14,7 +14,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -28,8 +27,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "EvaEmpDetails.findAll", query = "SELECT e FROM EvaEmpDetails e"),
     @NamedQuery(name = "EvaEmpDetails.findById", query = "SELECT e FROM EvaEmpDetails e WHERE e.id = :id"),
-    @NamedQuery(name = "EvaEmpDetails.findByName", query = "SELECT e FROM EvaEmpDetails e WHERE e.name = :name"),
-    @NamedQuery(name = "EvaEmpDetails.findByEmail", query = "SELECT e FROM EvaEmpDetails e WHERE e.email = :email")})
+    @NamedQuery(name = "EvaEmpDetails.findByEmail", query = "SELECT e FROM EvaEmpDetails e WHERE e.email = :email"),
+    @NamedQuery(name = "EvaEmpDetails.findByFName", query = "SELECT e FROM EvaEmpDetails e WHERE e.fName = :fName"),
+    @NamedQuery(name = "EvaEmpDetails.findByLName", query = "SELECT e FROM EvaEmpDetails e WHERE e.lName = :lName"),
+    @NamedQuery(name = "EvaEmpDetails.findByDesignation", query = "SELECT e FROM EvaEmpDetails e WHERE e.designation = :designation"),
+    @NamedQuery(name = "EvaEmpDetails.findByContact", query = "SELECT e FROM EvaEmpDetails e WHERE e.contact = :contact"),
+    @NamedQuery(name = "EvaEmpDetails.findByManager", query = "SELECT e FROM EvaEmpDetails e WHERE e.manager = :manager")})
 public class EvaEmpDetails implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -37,17 +40,37 @@ public class EvaEmpDetails implements Serializable {
     @NotNull
     @Column(name = "id")
     private Long id;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 60)
-    @Column(name = "name")
-    private String name;
-    @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
+    // @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message="Invalid email")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 50)
     @Column(name = "email")
     private String email;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 30)
+    @Column(name = "FName")
+    private String fName;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 30)
+    @Column(name = "LName")
+    private String lName;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 60)
+    @Column(name = "Designation")
+    private String designation;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 10)
+    @Column(name = "Contact")
+    private String contact;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 60)
+    @Column(name = "Manager")
+    private String manager;
 
     public EvaEmpDetails() {
     }
@@ -56,10 +79,14 @@ public class EvaEmpDetails implements Serializable {
         this.id = id;
     }
 
-    public EvaEmpDetails(Long id, String name, String email) {
+    public EvaEmpDetails(Long id, String email, String fName, String lName, String designation, String contact, String manager) {
         this.id = id;
-        this.name = name;
         this.email = email;
+        this.fName = fName;
+        this.lName = lName;
+        this.designation = designation;
+        this.contact = contact;
+        this.manager = manager;
     }
 
     public Long getId() {
@@ -70,20 +97,52 @@ public class EvaEmpDetails implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getFName() {
+        return fName;
+    }
+
+    public void setFName(String fName) {
+        this.fName = fName;
+    }
+
+    public String getLName() {
+        return lName;
+    }
+
+    public void setLName(String lName) {
+        this.lName = lName;
+    }
+
+    public String getDesignation() {
+        return designation;
+    }
+
+    public void setDesignation(String designation) {
+        this.designation = designation;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public String getManager() {
+        return manager;
+    }
+
+    public void setManager(String manager) {
+        this.manager = manager;
     }
 
     @Override
@@ -108,7 +167,7 @@ public class EvaEmpDetails implements Serializable {
 
     @Override
     public String toString() {
-        return "ApplicationSpecificClasses.EvaEmpDetails[ id=" + id + " ]";
+        return "dbentity.EvaEmpDetails[ id=" + id + " ]";
     }
     
 }

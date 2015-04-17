@@ -32,8 +32,10 @@ public class EmployeeDetailsOperations {
         this.mEvaEmpDetailsDBEntity = mEvaEmpDetailsDBEntity;
     }
     
-    public void createmEvaEmpDetailsDBEntity(){
+    public void createmEvaEmpDetailsDBEntity(String mail){
         long id = 77002;
         mEvaEmpDetailsDBEntity =  mEmployeeDetailsFactory.findEvaEmpDetails(id);              
     } 
 }
+
+ 
