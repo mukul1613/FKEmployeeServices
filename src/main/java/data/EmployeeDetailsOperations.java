@@ -33,8 +33,6 @@ public class EmployeeDetailsOperations {
     }
     
     public void createmEvaEmployeeDetailsDBEntity(String mail){
-       // mail = "mukul.kumar@flipkart.com";
-        long id = 77002;
         mEvaEmployeeDetailsDBEntity =  mEmployeeDetailsFactory.findEvaEmployeeDetails(mail);              
     } 
 }

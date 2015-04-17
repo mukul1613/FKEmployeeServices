@@ -29,11 +29,10 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "EvaEmployeeDetails.findAll", query = "SELECT e FROM EvaEmployeeDetails e"),
     @NamedQuery(name = "EvaEmployeeDetails.findById", query = "SELECT e FROM EvaEmployeeDetails e WHERE e.id = :id"),
     @NamedQuery(name = "EvaEmployeeDetails.findByEmail", query = "SELECT e FROM EvaEmployeeDetails e WHERE e.email = :email"),
-    @NamedQuery(name = "EvaEmployeeDetails.findByFname", query = "SELECT e FROM EvaEmployeeDetails e WHERE e.fname = :fname"),
-    @NamedQuery(name = "EvaEmployeeDetails.findByLname", query = "SELECT e FROM EvaEmployeeDetails e WHERE e.lname = :lname"),
     @NamedQuery(name = "EvaEmployeeDetails.findByContact", query = "SELECT e FROM EvaEmployeeDetails e WHERE e.contact = :contact"),
     @NamedQuery(name = "EvaEmployeeDetails.findByDesignation", query = "SELECT e FROM EvaEmployeeDetails e WHERE e.designation = :designation"),
-    @NamedQuery(name = "EvaEmployeeDetails.findByManager", query = "SELECT e FROM EvaEmployeeDetails e WHERE e.manager = :manager")})
+    @NamedQuery(name = "EvaEmployeeDetails.findByManager", query = "SELECT e FROM EvaEmployeeDetails e WHERE e.manager = :manager"),
+    @NamedQuery(name = "EvaEmployeeDetails.findByName", query = "SELECT e FROM EvaEmployeeDetails e WHERE e.name = :name")})
 public class EvaEmployeeDetails implements Serializable {
     private static final long serialVersionUID = 1L;
     @Column(name = "id")
@@ -45,12 +44,6 @@ public class EvaEmployeeDetails implements Serializable {
     @Size(min = 1, max = 60)
     @Column(name = "email")
     private String email;
-    @Size(max = 60)
-    @Column(name = "fname")
-    private String fname;
-    @Size(max = 60)
-    @Column(name = "lname")
-    private String lname;
     @Size(max = 10)
     @Column(name = "contact")
     private String contact;
@@ -60,6 +53,9 @@ public class EvaEmployeeDetails implements Serializable {
     @Size(max = 60)
     @Column(name = "manager")
     private String manager;
+    @Size(max = 60)
+    @Column(name = "name")
+    private String name;
 
     public EvaEmployeeDetails() {
     }
@@ -84,22 +80,6 @@ public class EvaEmployeeDetails implements Serializable {
         this.email = email;
     }
 
-    public String getFname() {
-        return fname;
-    }
-
-    public void setFname(String fname) {
-        this.fname = fname;
-    }
-
-    public String getLname() {
-        return lname;
-    }
-
-    public void setLname(String lname) {
-        this.lname = lname;
-    }
-
     public String getContact() {
         return contact;
     }
@@ -122,6 +102,14 @@ public class EvaEmployeeDetails implements Serializable {
 
     public void setManager(String manager) {
         this.manager = manager;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override

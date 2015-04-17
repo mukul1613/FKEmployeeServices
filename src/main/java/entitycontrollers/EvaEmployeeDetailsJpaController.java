@@ -8,6 +8,7 @@ package entitycontrollers;
 import dbentity.EvaEmployeeDetails;
 import entitycontrollers.exceptions.NonexistentEntityException;
 import entitycontrollers.exceptions.PreexistingEntityException;
+import entitycontrollers.exceptions.RollbackFailureException;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -16,6 +17,7 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import javax.transaction.UserTransaction;
 
 /**
  *
@@ -23,23 +25,34 @@ import javax.persistence.criteria.Root;
  */
 public class EvaEmployeeDetailsJpaController implements Serializable {
 
-    public EvaEmployeeDetailsJpaController(EntityManagerFactory emf) {
+    
+    public EvaEmployeeDetailsJpaController(EntityManagerFactory emf){
         this.emf = emf;
     }
+    public EvaEmployeeDetailsJpaController(UserTransaction utx, EntityManagerFactory emf) {
+        this.utx = utx;
+        this.emf = emf;
+    }
+    private UserTransaction utx = null;
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
         return emf.createEntityManager();
     }
 
-    public void create(EvaEmployeeDetails evaEmployeeDetails) throws PreexistingEntityException, Exception {
+    public void create(EvaEmployeeDetails evaEmployeeDetails) throws PreexistingEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
+            utx.begin();
             em = getEntityManager();
-            em.getTransaction().begin();
             em.persist(evaEmployeeDetails);
-            em.getTransaction().commit();
+            utx.commit();
         } catch (Exception ex) {
+            try {
+                utx.rollback();
+            } catch (Exception re) {
+                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
+            }
             if (findEvaEmployeeDetails(evaEmployeeDetails.getEmail()) != null) {
                 throw new PreexistingEntityException("EvaEmployeeDetails " + evaEmployeeDetails + " already exists.", ex);
             }
@@ -51,14 +64,19 @@ public class EvaEmployeeDetailsJpaController implements Serializable {
         }
     }
 
-    public void edit(EvaEmployeeDetails evaEmployeeDetails) throws NonexistentEntityException, Exception {
+    public void edit(EvaEmployeeDetails evaEmployeeDetails) throws NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
+            utx.begin();
             em = getEntityManager();
-            em.getTransaction().begin();
             evaEmployeeDetails = em.merge(evaEmployeeDetails);
-            em.getTransaction().commit();
+            utx.commit();
         } catch (Exception ex) {
+            try {
+                utx.rollback();
+            } catch (Exception re) {
+                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
+            }
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
                 String id = evaEmployeeDetails.getEmail();
@@ -74,11 +92,11 @@ public class EvaEmployeeDetailsJpaController implements Serializable {
         }
     }
 
-    public void destroy(String id) throws NonexistentEntityException {
+    public void destroy(String id) throws NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
+            utx.begin();
             em = getEntityManager();
-            em.getTransaction().begin();
             EvaEmployeeDetails evaEmployeeDetails;
             try {
                 evaEmployeeDetails = em.getReference(EvaEmployeeDetails.class, id);
@@ -87,7 +105,14 @@ public class EvaEmployeeDetailsJpaController implements Serializable {
                 throw new NonexistentEntityException("The evaEmployeeDetails with id " + id + " no longer exists.", enfe);
             }
             em.remove(evaEmployeeDetails);
-            em.getTransaction().commit();
+            utx.commit();
+        } catch (Exception ex) {
+            try {
+                utx.rollback();
+            } catch (Exception re) {
+                throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
+            }
+            throw ex;
         } finally {
             if (em != null) {
                 em.close();

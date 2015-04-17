@@ -14,8 +14,7 @@ import dbentity.EvaEmployeeDetails;
 public class EmployeeReturnClass {
     String id;
     String email;
-    String fName;
-    String lName;
+    String Name;
     String designation;
     String contact;
     String manager;
@@ -23,8 +22,7 @@ public class EmployeeReturnClass {
     public EmployeeReturnClass(String id, String email, String fName, String lName, String designation, String contact, String manager) {
         this.id = id;
         this.email = email;
-        this.fName = fName;
-        this.lName = lName;
+        this.Name = fName;
         this.designation = designation;
         this.contact = contact;
         this.manager = manager;
@@ -33,8 +31,7 @@ public class EmployeeReturnClass {
     public EmployeeReturnClass(EvaEmployeeDetails dbentityObject) {
         this.id = dbentityObject.getId().toString();
         this.email = dbentityObject.getEmail();
-        this.fName = dbentityObject.getFname();
-        this.lName = dbentityObject.getLname();
+        this.Name = dbentityObject.getName();
         this.designation = dbentityObject.getDesignation();
         this.contact = dbentityObject.getContact();
         this.manager = dbentityObject.getManager();
@@ -61,22 +58,14 @@ public class EmployeeReturnClass {
         this.email = email;
     }
 
-    public String getfName() {
-        return fName;
+    public String getName() {
+        return Name;
     }
 
-    public void setfName(String fName) {
-        this.fName = fName;
+    public void setName(String Name) {
+        this.Name = Name;
     }
-
-    public String getlName() {
-        return lName;
-    }
-
-    public void setlName(String lName) {
-        this.lName = lName;
-    }
-
+ 
     public String getDesignation() {
         return designation;
     }
