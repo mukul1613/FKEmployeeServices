@@ -5,9 +5,9 @@
  */
 package data;
 
-import dbentity.EvaEmpDetails;
+import dbentity.EvaEmployeeDetails;
 import entitycontrollers.ControllerFactory;
-import entitycontrollers.EvaEmpDetailsJpaController;
+import entitycontrollers.EvaEmployeeDetailsJpaController;
 
 /**
  *
@@ -15,8 +15,8 @@ import entitycontrollers.EvaEmpDetailsJpaController;
  */
 public class EmployeeDetailsOperations {
    
-    private final EvaEmpDetailsJpaController mEmployeeDetailsFactory;
-    private EvaEmpDetails mEvaEmpDetailsDBEntity ;
+    private final EvaEmployeeDetailsJpaController mEmployeeDetailsFactory;
+    private EvaEmployeeDetails mEvaEmployeeDetailsDBEntity ;
 
    
     
@@ -24,17 +24,18 @@ public class EmployeeDetailsOperations {
         this.mEmployeeDetailsFactory  = ControllerFactory.getController();
     }
     
-     public EvaEmpDetails getmEvaEmpDetailsDBEntity() {
-        return mEvaEmpDetailsDBEntity;
+     public EvaEmployeeDetails getmEvaEmployeeDetailsDBEntity() {
+        return mEvaEmployeeDetailsDBEntity;
     }
 
-    public void setmEvaEmpDetailsDBEntity(EvaEmpDetails mEvaEmpDetailsDBEntity) {
-        this.mEvaEmpDetailsDBEntity = mEvaEmpDetailsDBEntity;
+    public void setmEvaEmployeeDetailsDBEntity(EvaEmployeeDetails mEvaEmployeeDetailsDBEntity) {
+        this.mEvaEmployeeDetailsDBEntity = mEvaEmployeeDetailsDBEntity;
     }
     
-    public void createmEvaEmpDetailsDBEntity(String mail){
+    public void createmEvaEmployeeDetailsDBEntity(String mail){
+       // mail = "mukul.kumar@flipkart.com";
         long id = 77002;
-        mEvaEmpDetailsDBEntity =  mEmployeeDetailsFactory.findEvaEmpDetails(id);              
+        mEvaEmployeeDetailsDBEntity =  mEmployeeDetailsFactory.findEvaEmployeeDetails(mail);              
     } 
 }
 

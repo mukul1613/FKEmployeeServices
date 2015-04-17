@@ -7,7 +7,6 @@ package com.mycompany.fkemployeeservices;
 
 import data.EmployeeDetailsOperations;
 import data.EmployeeReturnClass;
-import dbentity.EvaEmpDetails;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -39,8 +38,8 @@ public class FKServicesCentralResource {
     @Consumes(MediaType.TEXT_PLAIN)
     public EmployeeReturnClass getEmployeeDetails(String email){
       mEmployeeDetailsOperations =  new EmployeeDetailsOperations(); 
-      mEmployeeDetailsOperations.createmEvaEmpDetailsDBEntity(email);
-      return new EmployeeReturnClass(mEmployeeDetailsOperations.getmEvaEmpDetailsDBEntity());
+      mEmployeeDetailsOperations.createmEvaEmployeeDetailsDBEntity(email);
+      return new EmployeeReturnClass(mEmployeeDetailsOperations.getmEvaEmployeeDetailsDBEntity());
     }    
     
 }

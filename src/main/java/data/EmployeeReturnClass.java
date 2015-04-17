@@ -5,39 +5,39 @@
  */
 package data;
 
-import dbentity.EvaEmpDetails;
+import dbentity.EvaEmployeeDetails;
 
 /**
  *
  * @author mukul.kumar
  */
 public class EmployeeReturnClass {
-    long id;
+    String id;
     String email;
     String fName;
     String lName;
     String designation;
     String contact;
-    String maneger;
+    String manager;
 
-    public EmployeeReturnClass(long id, String email, String fName, String lName, String designation, String contact, String maneger) {
+    public EmployeeReturnClass(String id, String email, String fName, String lName, String designation, String contact, String manager) {
         this.id = id;
         this.email = email;
         this.fName = fName;
         this.lName = lName;
         this.designation = designation;
         this.contact = contact;
-        this.maneger = maneger;
+        this.manager = manager;
     }
 
-    public EmployeeReturnClass(EvaEmpDetails dbentityObject) {
-        this.id = dbentityObject.getId();
+    public EmployeeReturnClass(EvaEmployeeDetails dbentityObject) {
+        this.id = dbentityObject.getId().toString();
         this.email = dbentityObject.getEmail();
-        this.fName = dbentityObject.getFName();
-        this.lName = dbentityObject.getLName();
+        this.fName = dbentityObject.getFname();
+        this.lName = dbentityObject.getLname();
         this.designation = dbentityObject.getDesignation();
         this.contact = dbentityObject.getContact();
-        this.maneger = dbentityObject.getManager();
+        this.manager = dbentityObject.getManager();
     }
 
     
@@ -45,11 +45,11 @@ public class EmployeeReturnClass {
     public EmployeeReturnClass() {
     }
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -93,12 +93,12 @@ public class EmployeeReturnClass {
         this.contact = contact;
     }
 
-    public String getManeger() {
-        return maneger;
+    public String getManager() {
+        return manager;
     }
 
-    public void setManeger(String maneger) {
-        this.maneger = maneger;
+    public void setManager(String manager) {
+        this.manager = manager;
     }
         
      
