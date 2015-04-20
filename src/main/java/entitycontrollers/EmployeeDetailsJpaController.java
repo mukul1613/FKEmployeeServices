@@ -5,7 +5,7 @@
  */
 package entitycontrollers;
 
-import dbentity.EvaEmployeeDetails;
+import dbentity.EmployeeDetails;
 import entitycontrollers.exceptions.NonexistentEntityException;
 import entitycontrollers.exceptions.PreexistingEntityException;
 import entitycontrollers.exceptions.RollbackFailureException;
@@ -15,6 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import javax.transaction.UserTransaction;
@@ -23,13 +24,13 @@ import javax.transaction.UserTransaction;
  *
  * @author mukul.kumar
  */
-public class EvaEmployeeDetailsJpaController implements Serializable {
+public class EmployeeDetailsJpaController implements Serializable {
 
-    
-    public EvaEmployeeDetailsJpaController(EntityManagerFactory emf){
+    public EmployeeDetailsJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
-    public EvaEmployeeDetailsJpaController(UserTransaction utx, EntityManagerFactory emf) {
+
+    public EmployeeDetailsJpaController(UserTransaction utx, EntityManagerFactory emf) {
         this.utx = utx;
         this.emf = emf;
     }
@@ -40,12 +41,12 @@ public class EvaEmployeeDetailsJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(EvaEmployeeDetails evaEmployeeDetails) throws PreexistingEntityException, RollbackFailureException, Exception {
+    public void create(EmployeeDetails employeeDetails) throws PreexistingEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
             utx.begin();
             em = getEntityManager();
-            em.persist(evaEmployeeDetails);
+            em.persist(employeeDetails);
             utx.commit();
         } catch (Exception ex) {
             try {
@@ -53,8 +54,8 @@ public class EvaEmployeeDetailsJpaController implements Serializable {
             } catch (Exception re) {
                 throw new RollbackFailureException("An error occurred attempting to roll back the transaction.", re);
             }
-            if (findEvaEmployeeDetails(evaEmployeeDetails.getEmail()) != null) {
-                throw new PreexistingEntityException("EvaEmployeeDetails " + evaEmployeeDetails + " already exists.", ex);
+            if (findEmployeeDetails(employeeDetails.getId()) != null) {
+                throw new PreexistingEntityException("EmployeeDetails " + employeeDetails + " already exists.", ex);
             }
             throw ex;
         } finally {
@@ -64,12 +65,12 @@ public class EvaEmployeeDetailsJpaController implements Serializable {
         }
     }
 
-    public void edit(EvaEmployeeDetails evaEmployeeDetails) throws NonexistentEntityException, RollbackFailureException, Exception {
+    public void edit(EmployeeDetails employeeDetails) throws NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
             utx.begin();
             em = getEntityManager();
-            evaEmployeeDetails = em.merge(evaEmployeeDetails);
+            employeeDetails = em.merge(employeeDetails);
             utx.commit();
         } catch (Exception ex) {
             try {
@@ -79,9 +80,9 @@ public class EvaEmployeeDetailsJpaController implements Serializable {
             }
             String msg = ex.getLocalizedMessage();
             if (msg == null || msg.length() == 0) {
-                String id = evaEmployeeDetails.getEmail();
-                if (findEvaEmployeeDetails(id) == null) {
-                    throw new NonexistentEntityException("The evaEmployeeDetails with id " + id + " no longer exists.");
+                Integer id = employeeDetails.getId();
+                if (findEmployeeDetails(id) == null) {
+                    throw new NonexistentEntityException("The employeeDetails with id " + id + " no longer exists.");
                 }
             }
             throw ex;
@@ -92,19 +93,19 @@ public class EvaEmployeeDetailsJpaController implements Serializable {
         }
     }
 
-    public void destroy(String id) throws NonexistentEntityException, RollbackFailureException, Exception {
+    public void destroy(Integer id) throws NonexistentEntityException, RollbackFailureException, Exception {
         EntityManager em = null;
         try {
             utx.begin();
             em = getEntityManager();
-            EvaEmployeeDetails evaEmployeeDetails;
+            EmployeeDetails employeeDetails;
             try {
-                evaEmployeeDetails = em.getReference(EvaEmployeeDetails.class, id);
-                evaEmployeeDetails.getEmail();
+                employeeDetails = em.getReference(EmployeeDetails.class, id);
+                employeeDetails.getId();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The evaEmployeeDetails with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("The employeeDetails with id " + id + " no longer exists.", enfe);
             }
-            em.remove(evaEmployeeDetails);
+            em.remove(employeeDetails);
             utx.commit();
         } catch (Exception ex) {
             try {
@@ -120,19 +121,19 @@ public class EvaEmployeeDetailsJpaController implements Serializable {
         }
     }
 
-    public List<EvaEmployeeDetails> findEvaEmployeeDetailsEntities() {
-        return findEvaEmployeeDetailsEntities(true, -1, -1);
+    public List<EmployeeDetails> findEmployeeDetailsEntities() {
+        return findEmployeeDetailsEntities(true, -1, -1);
     }
 
-    public List<EvaEmployeeDetails> findEvaEmployeeDetailsEntities(int maxResults, int firstResult) {
-        return findEvaEmployeeDetailsEntities(false, maxResults, firstResult);
+    public List<EmployeeDetails> findEmployeeDetailsEntities(int maxResults, int firstResult) {
+        return findEmployeeDetailsEntities(false, maxResults, firstResult);
     }
 
-    private List<EvaEmployeeDetails> findEvaEmployeeDetailsEntities(boolean all, int maxResults, int firstResult) {
+    private List<EmployeeDetails> findEmployeeDetailsEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(EvaEmployeeDetails.class));
+            cq.select(cq.from(EmployeeDetails.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -144,20 +145,35 @@ public class EvaEmployeeDetailsJpaController implements Serializable {
         }
     }
 
-    public EvaEmployeeDetails findEvaEmployeeDetails(String id) {
+    public EmployeeDetails findEmployeeDetails(Integer id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(EvaEmployeeDetails.class, id);
+            return em.find(EmployeeDetails.class, id);
         } finally {
             em.close();
         }
     }
+    
+    //named query for email - employee detail mapping
+    public EmployeeDetails findEmployeeDetails(String email) {
+        EntityManager em = getEntityManager();
+        TypedQuery<EmployeeDetails> query;
+        try {
+           query  = em.createNamedQuery("EmployeeDetails.findByEmpEmailid", EmployeeDetails.class);
+           query.setParameter("empEmailid", email);
+           List<EmployeeDetails> list = query.getResultList();
+           return list.size()>0?list.get(0):null;
+        } finally {
+            em.close();
+        }
+    }
+    
 
-    public int getEvaEmployeeDetailsCount() {
+    public int getEmployeeDetailsCount() {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<EvaEmployeeDetails> rt = cq.from(EvaEmployeeDetails.class);
+            Root<EmployeeDetails> rt = cq.from(EmployeeDetails.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
@@ -165,5 +181,5 @@ public class EvaEmployeeDetailsJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

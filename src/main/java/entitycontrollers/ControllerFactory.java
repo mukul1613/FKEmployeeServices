@@ -19,7 +19,7 @@ public class ControllerFactory {
      * this is an abstract factory design as this hides the creation logic for various controllers
      * @return the controller factory for employee details
      */
-   public static EvaEmployeeDetailsJpaController getController() {
-         return new EvaEmployeeDetailsJpaController(Persistence.createEntityManagerFactory("com.mycompany_FKEmployeeServices_war_1.0-SNAPSHOTPU"));
+   public static EmployeeDetailsJpaController getController() {
+         return new EmployeeDetailsJpaController(Persistence.createEntityManagerFactory("com.mycompany_FKEmployeeServices_war_1.0-SNAPSHOTPU"));
     }
 }
