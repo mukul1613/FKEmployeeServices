@@ -21,7 +21,7 @@ public class EmployeeDetailsOperations {
    
     
     public EmployeeDetailsOperations() {
-        this.mEmployeeDetailsFactory  = ControllerFactory.getController();
+        this.mEmployeeDetailsFactory  = ControllerFactory.getEmployeeDetailsController();
     }
     
      public EmployeeDetails getmEmployeeDetailsDBEntity() {

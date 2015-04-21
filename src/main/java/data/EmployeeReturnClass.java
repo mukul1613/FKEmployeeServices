@@ -6,21 +6,22 @@
 package data;
 
 import dbentity.EmployeeDetails;
+import java.math.BigInteger;
 
 /**
  *
  * @author mukul.kumar
  */
 public class EmployeeReturnClass {
-    int  id;
+    int  emp_id;
     String email;
     String Name;
     String designation;
-    int contact;
+    BigInteger contact;
     String manager;
 
-    public EmployeeReturnClass(int id, String email, String fName, String lName, String designation, int contact, String manager) {
-        this.id = id;
+    public EmployeeReturnClass(int id, String email, String fName, String lName, String designation, BigInteger contact, String manager) {
+        this.emp_id = id;
         this.email = email;
         this.Name = fName;
         this.designation = designation;
@@ -30,7 +31,7 @@ public class EmployeeReturnClass {
 
     public EmployeeReturnClass(EmployeeDetails dbentityObject) {
         if (dbentityObject != null) {
-            this.id = dbentityObject.getId();
+            this.emp_id = dbentityObject.getEmpId();
             this.email = dbentityObject.getEmpEmailid();
             this.Name = dbentityObject.getEmpName();
             this.designation = dbentityObject.getEmpDesignation();
@@ -48,19 +49,19 @@ public class EmployeeReturnClass {
     }
 
     public void setDummyValue() {
-        this.id = 0;
+        this.emp_id = 99999;
         this.email = "NA";
         this.Name = "NA";
         this.designation = "NA";;
-        this.contact = 0;
+        this.contact = new BigInteger("9999999999");
         this.manager =  "NA";         
     }
     public int getId() {
-        return id;
+        return emp_id;
     }
 
     public void setId(int id) {
-        this.id = id;
+        this.emp_id = id;
     }
 
     public String getEmail() {
@@ -87,11 +88,11 @@ public class EmployeeReturnClass {
         this.designation = designation;
     }
 
-    public int getContact() {
+    public BigInteger getContact() {
         return contact;
     }
 
-    public void setContact(int contact) {
+    public void setContact(BigInteger contact) {
         this.contact = contact;
     }
 

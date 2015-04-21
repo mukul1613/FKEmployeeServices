@@ -6,6 +6,7 @@
 package dbentity;
 
 import java.io.Serializable;
+import java.math.BigInteger;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -50,7 +51,7 @@ public class EmployeeDetails implements Serializable {
     @Column(name = "emp_emailid")
     private String empEmailid;
     @Column(name = "emp_contact")
-    private Integer empContact;
+    private BigInteger empContact;
     @Size(max = 255)
     @Column(name = "emp_designation")
     private String empDesignation;
@@ -98,11 +99,11 @@ public class EmployeeDetails implements Serializable {
         this.empEmailid = empEmailid;
     }
 
-    public Integer getEmpContact() {
+    public BigInteger getEmpContact() {
         return empContact;
     }
 
-    public void setEmpContact(Integer empContact) {
+    public void setEmpContact(BigInteger empContact) {
         this.empContact = empContact;
     }
 
