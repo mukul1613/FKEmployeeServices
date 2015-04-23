@@ -26,7 +26,7 @@ import javax.transaction.UserTransaction;
 public class EvaNotificationsJpaController implements Serializable {
 
     public EvaNotificationsJpaController(EntityManagerFactory emf) {
-      this.emf = emf;
+        this.emf = emf;
     }
     
     public EvaNotificationsJpaController(UserTransaction utx, EntityManagerFactory emf) {

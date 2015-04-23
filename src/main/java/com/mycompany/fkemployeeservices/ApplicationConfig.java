@@ -1,26 +1,26 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.mycompany.fkemployeeservices;
 
-import java.util.Set;
-import javax.ws.rs.core.Application;
+import javax.ws.rs.ApplicationPath;
+import org.glassfish.jersey.server.ResourceConfig;
 
 /**
  *
  * @author mukul.kumar
  */
-@javax.ws.rs.ApplicationPath("webresources")
-public class ApplicationConfig extends Application {
+//@ApplicationPath("webresources")
+public class ApplicationConfig /*extends ResourceConfig */{
+//
+//    public ApplicationConfig() {
+//        packages("com.mycompany.fkemployeeservices");
+//    }
 
-    @Override
-    public Set<Class<?>> getClasses() {
-        Set<Class<?>> resources = new java.util.HashSet<>();
-        addRestResourceClasses(resources);
-        return resources;
-    }
+//    @Override
+//    public Set<Class<?>> getClasses() {
+//        Set<Class<?>> resources = new java.util.HashSet<>();
+//        addRestResourceClasses(resources);
+//        return resources;
+//    }
 
     /**
      * Do not modify addRestResourceClasses() method.
@@ -28,8 +28,8 @@ public class ApplicationConfig extends Application {
      * all resources defined in the project.
      * If required, comment out calling this method in getClasses().
      */
-    private void addRestResourceClasses(Set<Class<?>> resources) {
-        resources.add(com.mycompany.fkemployeeservices.FKServicesCentralResource.class);
-    }
+//    private void addRestResourceClasses(Set<Class<?>> resources) {
+//        resources.add(com.mycompany.fkemployeeservices.FKServicesCentralResource.class);
+//    }
     
 }

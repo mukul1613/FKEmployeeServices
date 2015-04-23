@@ -27,8 +27,8 @@ public class EvaNewsJpaController implements Serializable {
 
      public EvaNewsJpaController(EntityManagerFactory emf) {
         this.emf = emf;
-     }
-     
+    }
+    
     public EvaNewsJpaController(UserTransaction utx, EntityManagerFactory emf) {
         this.utx = utx;
         this.emf = emf;
