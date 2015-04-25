@@ -3,15 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package data;
+package com.mycompany.fkemployeeservices;
 
 import dbentity.EmployeeDetails;
 import java.math.BigInteger;
+import javax.ws.rs.core.Context;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
  * @author mukul.kumar
  */
+
+@XmlRootElement
 public class EmployeeReturnClass {
     int  emp_id;
     String email;
@@ -29,6 +33,8 @@ public class EmployeeReturnClass {
         this.manager = manager;
     }
 
+    
+    
     public EmployeeReturnClass(EmployeeDetails dbentityObject) {
         if (dbentityObject != null) {
             this.emp_id = dbentityObject.getEmpId();
@@ -42,10 +48,9 @@ public class EmployeeReturnClass {
         }
     }
 
-    
+   
     
     public EmployeeReturnClass() {
-
     }
 
     public void setDummyValue() {

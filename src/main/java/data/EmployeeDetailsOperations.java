@@ -6,8 +6,12 @@
 package data;
 
 import dbentity.EmployeeDetails;
+import dbentity.EvaNews;
+import dbentity.EvaNotifications;
 import entitycontrollers.ControllerFactory;
 import entitycontrollers.EmployeeDetailsJpaController;
+import entitycontrollers.EvaNewsJpaController;
+import entitycontrollers.EvaNotificationsJpaController;
 
 /**
  *
@@ -16,10 +20,31 @@ import entitycontrollers.EmployeeDetailsJpaController;
 public class EmployeeDetailsOperations {
    
     private final EmployeeDetailsJpaController mEmployeeDetailsFactory;
-    private EmployeeDetails mEmployeeDetailsDBEntity ;
-
-   
+    private EvaNewsJpaController mEvaNewsJpaController;
+    private EvaNotificationsJpaController mEvaNotificationsJpaController;
     
+    private EmployeeDetails mEmployeeDetailsDBEntity ;
+    private EvaNews mEvaNewsDBEntity;
+    private EvaNotifications mEvaNotificationsDBEntity;
+    
+    
+    
+    public EvaNewsJpaController getmEvaNewsJpaController() {
+        return mEvaNewsJpaController;
+    }    
+    
+    public EvaNotificationsJpaController getmEvaNotificationsJpaController() {
+        return mEvaNotificationsJpaController;
+    }
+    
+    public void setmEvaNewsJpaController(EvaNewsJpaController mEvaNewsJpaController) {
+        this.mEvaNewsJpaController = mEvaNewsJpaController;
+    }    
+
+    public void setmEvaNotificationsJpaController(EvaNotificationsJpaController mEvaNotificationsJpaController) {
+        this.mEvaNotificationsJpaController = mEvaNotificationsJpaController;
+    }
+       
     public EmployeeDetailsOperations() {
         this.mEmployeeDetailsFactory  = ControllerFactory.getEmployeeDetailsController();
     }
@@ -32,9 +57,19 @@ public class EmployeeDetailsOperations {
         this.mEmployeeDetailsDBEntity = mEmployeeDetailsDBEntity;
     }
     
-    public void createmEmployeeDetailsDBEntity(String mail){
+    public void createEmployeeDetailsDBEntity(String mail){
         mEmployeeDetailsDBEntity =  mEmployeeDetailsFactory.findEmployeeDetails(mail);              
     } 
+    
+    public void createEvaNewsJpaController(String mail){
+        mEvaNewsDBEntity = mEvaNewsJpaController.findEvaNews(mail);
+    }  
+    
+    public void createEvaNotificationsDBEntity(String mail){
+        mEvaNotificationsDBEntity = mEvaNotificationsJpaController.findEvaNotifications(mail);
+    }
+    
+    
 }
 
  

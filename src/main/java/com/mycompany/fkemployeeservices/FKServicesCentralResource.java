@@ -6,7 +6,6 @@
 package com.mycompany.fkemployeeservices;
 
 import data.EmployeeDetailsOperations;
-import data.EmployeeReturnClass;
 import data.FlipNews;
 import data.NotificationsToDos;
 import dbentity.EmployeeDetails;
@@ -18,7 +17,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
-import com.mysql.jdbc.Driver;
 
 /**
  * REST Web Service
@@ -40,11 +38,11 @@ public class FKServicesCentralResource {
 
     @Path("empdetails")
     @POST
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON )
     @Consumes(MediaType.TEXT_PLAIN)
     public EmployeeReturnClass getEmployeeDetails(String email) {
         mEmployeeDetailsOperations = new EmployeeDetailsOperations();
-        mEmployeeDetailsOperations.createmEmployeeDetailsDBEntity(email);
+        mEmployeeDetailsOperations.createEmployeeDetailsDBEntity(email);
         EmployeeDetails tempObj = mEmployeeDetailsOperations.getmEmployeeDetailsDBEntity();
         return new EmployeeReturnClass(tempObj);
     }
