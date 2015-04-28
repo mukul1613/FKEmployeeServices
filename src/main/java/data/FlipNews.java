@@ -5,6 +5,7 @@
  */
 package data;
 
+import dbentity.EvaNews;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,26 +14,36 @@ import java.util.List;
  * @author mukul.kumar
  */
 public final class FlipNews {
-     List<String> news;
- 
-  public FlipNews(){
-      this.news = new LinkedList<>();
-      updateNews("test data");
-  }
+
+    List<String> news;
+
+    public FlipNews() {
+        this.news = new LinkedList<>();
+    }
+
+    public FlipNews(EvaNews dbEntityObj) {
+        this();
+        if (dbEntityObj != null) {
+            this.news.add(dbEntityObj.getNews1());
+            this.news.add(dbEntityObj.getNews2());
+            this.news.add(dbEntityObj.getNews3());
+        } else {
+            updateNewsForDataNotAvailable();
+        }
+    }
 
     public List<String> getNews() {
         return news;
     }
-    
 
-    public void updateNews(String data) {
-        this.news.add("this is sample news 1"+data);
-        this.news.add("this is sample news 2");
-        this.news.add("this is sample news 3");
-     }
+    public void updateNewsForDataNotAvailable() {
+        this.news.add("news not available");
+        this.news.add("news not available");
+        this.news.add("news not available");
+    }
 
     public void setNews(List<String> news) {
         this.news = news;
     }
-    
+
 }

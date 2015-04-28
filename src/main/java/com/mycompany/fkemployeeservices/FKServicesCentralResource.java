@@ -9,6 +9,8 @@ import data.EmployeeDetailsOperations;
 import data.FlipNews;
 import data.NotificationsToDos;
 import dbentity.EmployeeDetails;
+import dbentity.EvaNews;
+import dbentity.EvaNotifications;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.core.Context;
@@ -38,10 +40,11 @@ public class FKServicesCentralResource {
 
     @Path("empdetails")
     @POST
-    @Produces(MediaType.APPLICATION_JSON )
+    @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
     public EmployeeReturnClass getEmployeeDetails(String email) {
-        mEmployeeDetailsOperations = new EmployeeDetailsOperations();
+        int flag = 1;
+        mEmployeeDetailsOperations = new EmployeeDetailsOperations(flag);
         mEmployeeDetailsOperations.createEmployeeDetailsDBEntity(email);
         EmployeeDetails tempObj = mEmployeeDetailsOperations.getmEmployeeDetailsDBEntity();
         return new EmployeeReturnClass(tempObj);
@@ -52,7 +55,11 @@ public class FKServicesCentralResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
     public FlipNews getFlipNewsData(String email) {
-        return new FlipNews();
+        int flag = 2;
+        mEmployeeDetailsOperations = new EmployeeDetailsOperations(flag);
+        mEmployeeDetailsOperations.createEvaNewsDBEntity(email);
+        EvaNews tempObj = mEmployeeDetailsOperations.getmEvaNewsDBEntity();
+        return new FlipNews(tempObj);
     }
 
     @Path("flipnotification")
@@ -60,7 +67,11 @@ public class FKServicesCentralResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
     public NotificationsToDos getFlipNotifications(String email) {
-        return new NotificationsToDos();
+        int flag = 3;
+        mEmployeeDetailsOperations = new EmployeeDetailsOperations(flag);
+        mEmployeeDetailsOperations.createEvaNotificationsDBEntity(email);
+        EvaNotifications tempObj = mEmployeeDetailsOperations.getmEvaNotificationsDBEntity();
+        return new NotificationsToDos(tempObj);
     }
 
     @Path("/version")

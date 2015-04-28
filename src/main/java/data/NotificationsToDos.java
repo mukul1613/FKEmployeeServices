@@ -5,6 +5,7 @@
  */
 package data;
 
+import dbentity.EvaNotifications;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -17,17 +18,26 @@ public final class NotificationsToDos {
     List<String> notifications;
 
     public NotificationsToDos() {
-        this.notifications = getNotifications();
+        notifications = new LinkedList<>();
+    }
+
+    public NotificationsToDos(EvaNotifications dbEntityObj){
+        this();
+        if(dbEntityObj!=null){
+           notifications.add(dbEntityObj.getNotification1());
+           notifications.add(dbEntityObj.getNotification2());
+           notifications.add(dbEntityObj.getNotification3());
+        } else {
+           notifications.add("no notifications available");
+           notifications.add("no notifications available");
+           notifications.add("no notifications available");
+        }
     }
 
     public List<String> getNotifications() {
-        List<String> tempList = new LinkedList<>();
-        tempList.add("this is sample notification 1");
-        tempList.add("this is sample notification 2");
-        tempList.add("this is sample notification 3");
-        return tempList;
-    }
-
+        return notifications;
+    }    
+    
     public void setNotifications(List<String> notifications) {
         this.notifications = notifications;
     }
