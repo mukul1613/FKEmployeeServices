@@ -30,7 +30,7 @@ public class FKServicesCentralResource {
 
     @Context
     private UriInfo context;
-    private EmployeeDetailsOperations mEmployeeDetailsOperations;
+   // private EmployeeDetailsOperations mEmployeeDetailsOperations;
 
     /**
      * Creates a new instance of FKServicesCentralResource
@@ -44,7 +44,7 @@ public class FKServicesCentralResource {
     @Consumes(MediaType.TEXT_PLAIN)
     public EmployeeReturnClass getEmployeeDetails(String email) {
         int flag = 1;
-        mEmployeeDetailsOperations = new EmployeeDetailsOperations(flag);
+        EmployeeDetailsOperations   mEmployeeDetailsOperations = new EmployeeDetailsOperations(flag);
         mEmployeeDetailsOperations.createEmployeeDetailsDBEntity(email);
         EmployeeDetails tempObj = mEmployeeDetailsOperations.getmEmployeeDetailsDBEntity();
         return new EmployeeReturnClass(tempObj);
@@ -56,7 +56,7 @@ public class FKServicesCentralResource {
     @Consumes(MediaType.TEXT_PLAIN)
     public FlipNews getFlipNewsData(String email) {
         int flag = 2;
-        mEmployeeDetailsOperations = new EmployeeDetailsOperations(flag);
+        EmployeeDetailsOperations mEmployeeDetailsOperations = new EmployeeDetailsOperations(flag);
         mEmployeeDetailsOperations.createEvaNewsDBEntity(email);
         EvaNews tempObj = mEmployeeDetailsOperations.getmEvaNewsDBEntity();
         return new FlipNews(tempObj);
@@ -65,10 +65,9 @@ public class FKServicesCentralResource {
     @Path("flipnotification")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.TEXT_PLAIN)
     public NotificationsToDos getFlipNotifications(String email) {
         int flag = 3;
-        mEmployeeDetailsOperations = new EmployeeDetailsOperations(flag);
+        EmployeeDetailsOperations mEmployeeDetailsOperations = new EmployeeDetailsOperations(flag);
         mEmployeeDetailsOperations.createEvaNotificationsDBEntity(email);
         EvaNotifications tempObj = mEmployeeDetailsOperations.getmEvaNotificationsDBEntity();
         return new NotificationsToDos(tempObj);

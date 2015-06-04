@@ -55,11 +55,11 @@ public class EmployeeReturnClass {
 
     public void setDummyValue() {
         this.emp_id = 99999;
-        this.email = "NA";
-        this.Name = "NA";
-        this.designation = "NA";;
+        this.email = "Not Available";
+        this.Name = "Not Available";
+        this.designation = "Not Available";;
         this.contact = new BigInteger("9999999999");
-        this.manager =  "NA";         
+        this.manager =  "Not Available";         
     }
     public int getId() {
         return emp_id;
@@ -107,6 +107,11 @@ public class EmployeeReturnClass {
 
     public void setManager(String manager) {
         this.manager = manager;
+    }
+
+    @Override
+    public String toString() {
+        return emp_id + "," + email + "," + Name + "," + designation + "," + contact + "," + manager;
     }
      
     

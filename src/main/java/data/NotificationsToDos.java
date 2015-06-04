@@ -15,31 +15,51 @@ import java.util.List;
  */
 public final class NotificationsToDos {
 
-    List<String> notifications;
-
+    //List<String> notifications;
+    String notification1 = null;
+    String notification2 = null;
+    String notification3 = null;
     public NotificationsToDos() {
-        notifications = new LinkedList<>();
+       // notifications = new LinkedList<>();
     }
 
     public NotificationsToDos(EvaNotifications dbEntityObj){
         this();
         if(dbEntityObj!=null){
-           notifications.add(dbEntityObj.getNotification1());
-           notifications.add(dbEntityObj.getNotification2());
-           notifications.add(dbEntityObj.getNotification3());
+           notification1 = dbEntityObj.getNotification1();
+           notification2 = dbEntityObj.getNotification2();
+           notification3 = dbEntityObj.getNotification2();
         } else {
-           notifications.add("no notifications available");
-           notifications.add("no notifications available");
-           notifications.add("no notifications available");
+           notification1 ="no notifications available";
+           notification2 ="no notifications available";
+           notification3 ="no notifications available";
         }
     }
 
-    public List<String> getNotifications() {
-        return notifications;
-    }    
-    
-    public void setNotifications(List<String> notifications) {
-        this.notifications = notifications;
+    public String getNotification1() {
+        return notification1;
     }
+
+    public void setNotification1(String notification1) {
+        this.notification1 = notification1;
+    }
+
+    public String getNotification2() {
+        return notification2;
+    }
+
+    public void setNotification2(String notification2) {
+        this.notification2 = notification2;
+    }
+
+    public String getNotification3() {
+        return notification3;
+    }
+
+    public void setNotification3(String notification3) {
+        this.notification3 = notification3;
+    }
+
+    
 
 }
